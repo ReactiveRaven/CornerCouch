@@ -53,19 +53,21 @@ factory('cornercouch', ['$http', function($http) {
             });
         };
 
-        CouchDoc.prototype.save = function() {
+        CouchDoc.prototype.save = function(extraConfig) {
 
             var config;
-            if (this._id)
-                config = { 
-                    method: "PUT" ,
-                    url:    encodeUri(dbUri, this._id)
-                };
-            else
-                config = {
-                    method: "POST",
-                    url:    dbUri 
-                };
+            if (extraConfig) {
+                config = angular.copy(extraConfig);
+            } else {
+                config = {};
+            }
+            if (this._id) {
+                config.method = "PUT";
+                config.url = encodeUri(dbUri, this._id);
+            } else {
+                config.method = "POST";
+                config.url = dbUri;
+            };
             
             var doc = config.data = this;
 

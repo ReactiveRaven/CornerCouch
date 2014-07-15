@@ -211,6 +211,9 @@ factory('cornercouch', ['$http', function($http) {
             else {
                 db.rows = data.rows;
             }
+            if (data.update_seq) {
+                db.update_seq = data.update_seq;
+            }
             db.queryActive = false;
 
        }).error( function() { db.queryActive = false; });
